@@ -1,0 +1,12 @@
+.header {
+
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.header img {
+	height: 40px;
+	padding: 0 15px;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+}
