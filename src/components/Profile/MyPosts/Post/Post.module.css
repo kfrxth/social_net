@@ -1,0 +1,13 @@
+.item {
+	color:dodgerblue;
+}
+
+.item img {
+	width: 50px;
+	border-radius: 80px;
+	height: 50px;
+}
+
+.comment {
+	width: 100px;
+}
