@@ -1,15 +1,16 @@
 .nav {
-  grid-area: n;
-}
-
-.item {
-  font-family: "Merriweather", serif;
-  font-size: larger;
-  list-style: none;
-  color: wheat;
-  margin: 70px;
-  text-align: left;
-  font-weight: bolder;
-  text-shadow: 1px 1px 1px black, 0 0px 1px black,
-   2px 2px 2px black
-}
+	grid-area: n;
+  }
+  
+  .item {
+	font-family: "Merriweather", serif;
+	font-size: larger;
+	list-style: none;
+	color: wheat;
+	margin: 70px;
+	text-align: left;
+	font-weight: bolder;
+	text-shadow: 1px 1px 1px black, 0 0px 1px black,
+	 2px 2px 2px black
+  }
+  

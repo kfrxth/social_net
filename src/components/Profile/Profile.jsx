@@ -1,12 +1,12 @@
 import React from "react";
 import MyPosts from "./MyPosts/MyPosts";
-import profStyle from "./Profile.module.css";
+import ProfileStyle from "./Profile.module.css";
 
 const Profile = () => {
   return (
-    <div className={profStyle.content}>
+    <div className={ProfileStyle.item}>
       <div>ава + описание</div>
-	  <MyPosts />
+      <MyPosts />
     </div>
   );
 };

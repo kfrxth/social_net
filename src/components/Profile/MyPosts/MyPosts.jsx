@@ -7,12 +7,12 @@ const MyPosts = () => {
     <div>
       мои посты
       <div>
-		<textarea></textarea>
-		<button>Добавить пост</button>
-		</div>
-      <div className={s.posts}>
-        <Post message='Hi, you are' like="10"/>
-		<Post message={`its me yees`} like="15"/>
+        <textarea></textarea>
+        <button>Добавить пост</button>
+      </div>
+      <div>
+        <Post message="Hi, you are" like="10" />
+        <Post message={`its me yees`} like="15" />
       </div>
     </div>
   );
