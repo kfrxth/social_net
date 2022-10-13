@@ -1,16 +1,26 @@
 .nav {
-	grid-area: n;
-  }
+  grid-area: n;
   
-  .item {
-	font-family: "Merriweather", serif;
-	font-size: larger;
-	list-style: none;
-	color: wheat;
-	margin: 70px;
-	text-align: left;
-	font-weight: bolder;
-	text-shadow: 1px 1px 1px black, 0 0px 1px black,
-	 2px 2px 2px black
-  }
-  
+  padding: 30px;
+}
+
+.item {
+  font-family: "Merriweather", serif;
+  text-decoration: none;
+  font-size: larger;
+  list-style: none;
+  margin: 50px;
+  color: wheat;
+  text-align: left;
+  font-weight: bolder;
+  text-shadow: 1px 1px 1px gray, 0 0px 1px black, 2px 2px 2px black;
+}
+
+.item .active {
+  font-family: "Merriweather", serif;
+  font-size: larger;
+  text-decoration: none;
+  list-style: none;
+  margin: 50px;
+  color: goldenrod;
+}

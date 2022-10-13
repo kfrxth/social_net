@@ -1,5 +1,5 @@
 .header {
-
+	grid-area: h;
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
