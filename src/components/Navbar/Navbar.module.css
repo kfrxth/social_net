@@ -1,26 +1,36 @@
 .nav {
   grid-area: n;
-  
   padding: 30px;
 }
 
 .item {
-  font-family: "Merriweather", serif;
   text-decoration: none;
   font-size: larger;
   list-style: none;
   margin: 50px;
-  color: wheat;
+  color: #000000;
   text-align: left;
   font-weight: bolder;
-  text-shadow: 1px 1px 1px gray, 0 0px 1px black, 2px 2px 2px black;
+  border-bottom: 2px solid #F2F3F7;
+  font-family: 'SegoeUIBold';
+  font-size: 16px;
+  text-transform: uppercase;
+  
 }
 
 .item .active {
   font-family: "Merriweather", serif;
   font-size: larger;
-  text-decoration: none;
   list-style: none;
   margin: 50px;
-  color: goldenrod;
+  color: #1e3685;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 2px solid #1e3685;
+  
 }

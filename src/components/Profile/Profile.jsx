@@ -1,12 +1,16 @@
 import React from "react";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPosts from "./MyPosts/MyPosts";
-import ProfileStyle from "./Profile.module.css";
 
 const Profile = () => {
   return (
-    <div className={ProfileStyle.item}>
-      <div>ава + описание</div>
-      <MyPosts />
+    <div>
+      <div>
+        <ProfileInfo />
+      </div>
+      <div>
+        <MyPosts></MyPosts>
+      </div>
     </div>
   );
 };
