@@ -1,36 +1,22 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import DialogItem from './DialogItem/DialogItem.jsx';
+import Message from './Message/Message';
 import s from "./Dialogs.module.css";
 
-const DialogItem = (props) => {
-  const path = `/dialogs/${props.id}`;
-
-  return (
-    <div className={s.dialog + " " + s.active}>
-      <NavLink to={path}>{props.name}</NavLink>
-    </div>
-  );
-};
-
-const Message = (props) => {
-  return <div className={s.dialog}>{props.message}</div>;
-};
-
 const Dialogs = (props) => {
+
+  const dialogsMassive = props.state.dialogsData.map((dialog) => {
+    return <DialogItem id={dialog.id} name={dialog.name}></DialogItem>;
+  });
+
+  const messagesMassive = props.state.messagesData.map((message) => {
+    return <Message id={message.id} message={message.text}></Message>;
+  });
+
   return (
     <div className={s.dialogs}>
-      <div className={s.dialogsItems}>
-        <DialogItem name="Andrey" id="1"></DialogItem>
-        <DialogItem name="Aleksey" id="2"></DialogItem>
-        <DialogItem name="Victor" id="3"></DialogItem>
-        <DialogItem name="Matvey" id="4"></DialogItem>
-        <DialogItem name="Valentin" id="5"></DialogItem>
-      </div>
-      <div className={s.messages}>
-        <Message message="Hi"></Message>
-        <Message message="WHATSUP"></Message>
-        <Message message="YO"></Message>
-      </div>
+      <div className={s.dialogsItems}>{dialogsMassive}</div>
+      <div className={s.messages}>{messagesMassive}</div>
     </div>
   );
 };

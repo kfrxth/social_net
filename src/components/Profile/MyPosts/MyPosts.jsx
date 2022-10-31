@@ -2,7 +2,12 @@ import React from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
-const MyPosts = () => {
+const posts = (props) => {
+
+  const postElements = props.posts.map((post) => {
+    return <Post message={post.message} id={post.id} likes={post.likes} />;
+  });
+
   return (
     <div className={s.postsBlock}>
       <h3>Мои посты</h3>
@@ -14,12 +19,9 @@ const MyPosts = () => {
           <button>Добавить пост</button>
         </div>
       </div>
-      <div className={s.posts}>
-        <Post message="Hi, you are" like="10" />
-        <Post message={`its me yees`} like="15" />
-      </div>
+      <div className={s.posts}>{postElements}</div>
     </div>
   );
 };
 
-export default MyPosts;
+export default posts;

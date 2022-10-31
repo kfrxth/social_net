@@ -6,7 +6,6 @@
 .item {
   text-decoration: none;
   font-size: larger;
-  list-style: none;
   margin: 50px;
   color: #000000;
   text-align: left;
@@ -21,7 +20,6 @@
 .item .active {
   font-family: "Merriweather", serif;
   font-size: larger;
-  list-style: none;
   margin: 50px;
   color: #1e3685;
   -webkit-transition: all 0.2s ease-in-out;

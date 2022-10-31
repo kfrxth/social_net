@@ -1,7 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap");
-
 .app-wrapper {
-  
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
@@ -15,8 +12,8 @@
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
   grid-template-areas:
-    "h h" 
-	"n c";
+    "h h"
+    "n c";
 }
 
 .app-wrapper-content {
