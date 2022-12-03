@@ -2,35 +2,54 @@ import React from "react";
 import DialogItem from "./DialogItem/DialogItem.jsx";
 import Message from "./Message/Message";
 import s from "./Dialogs.module.css";
+import {
+  sendNewMessageActionCreator,
+  updateNewMessageActionCreator,
+} from "../../redux/State.js";
 
 const Dialogs = (props) => {
-  const dialogsMassive = props.state.dialogsData.map((dialog) => {
+  let state = props.store.getState().dialogsPage;
+
+  const dialogsMassive = state.dialogsData.map((dialog) => {
     return <DialogItem id={dialog.id} name={dialog.name}></DialogItem>;
   });
 
-  const messagesMassive = props.state.messagesData.map((message) => {
+  const messagesMassive = state.messagesData.map((message) => {
     return <Message id={message.id} message={message.text}></Message>;
   });
 
+  let newMessageBody = state.textMessage;
+
   const newMessageRef = React.createRef();
 
-  const sendMessage = () => {
-	const text = newMessageRef.current.value;
-	alert(text);
-  }
+  const onSendNewMessage = () => {
+    props.store.dispatch(sendNewMessageActionCreator());
+  };
+
+  const onMessageChange = (e) => {
+    let text = e.target.value;
+    props.store.dispatch(updateNewMessageActionCreator(text));
+  };
 
   return (
     <div>
       <div className={s.dialogs}>
         <div className={s.dialogsItems}>{dialogsMassive}</div>
-        <div className={s.messages}>{messagesMassive}</div>
-      </div>
-      <div>
-        <div>
-          <textarea ref={newMessageRef}></textarea>
-        </div>
-        <div>
-          <button onClick={sendMessage}>Отправить сообщение</button>
+        <div className={s.messages}>
+          <div>{messagesMassive}</div>
+          <div>
+            <div>
+              <textarea
+                placeholder="Введите сообщение"
+                ref={newMessageRef}
+                onChange={onMessageChange}
+                value={newMessageBody}
+              />
+            </div>
+            <div>
+              <button onClick={onSendNewMessage}>Отправить сообщение</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

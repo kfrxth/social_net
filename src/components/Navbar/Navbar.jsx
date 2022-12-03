@@ -37,7 +37,7 @@ const Navbar = () => {
           to="/music"
           className={(navData) => (navData.isActive ? s.active : s.item)}
         >
-          Музыка
+          Документы
         </NavLink>
       </div>
 
