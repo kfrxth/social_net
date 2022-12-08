@@ -6,21 +6,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-const rerenderMainTree = (state) => {
-  root.render(
-    <BrowserRouter>
-      <App dispatch={store.dispatch.bind(state)} store={store} />
-    </BrowserRouter>
-  );
-};
-
-rerenderMainTree(store.getState());
-
-store.subscribe(() => {
-	let state = store.getState();
-	rerenderMainTree(state);
-});
-
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>
+);
 reportWebVitals();
