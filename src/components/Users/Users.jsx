@@ -1,74 +1,63 @@
+import axios from "axios";
 import React from "react";
 import styles from "./users.module.css";
 
-const Users = (props) => {
-  if (props.users.length === 0) {
-    props.setUsers([
-      {
-        id: 1,
-        image:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHdizJ0vfyHe05Bdp3TwK_Ib-5Bf-tJg9YqPFN8kdLSmtna40VEQqX3taNstRZB2zGDPU&usqp=CAU",
-        follow: true,
-        name: "Дмитрий К.",
-        job: {
-          department: "Бухгалтерский отдел",
-          post: "Главный бухгалтер",
-        },
-        status: `2+2=4`,
-      },
-      {
-        id: 2,
-        image:
-          "https://pbs.twimg.com/profile_images/1167253265806962691/hmaUNnIc_400x400.jpg",
-        follow: false,
-        name: "Иван И.",
-        job: {
-          department: "Менеджмент",
-          post: "Начальник отдела",
-        },
-        status: `2+2=5`,
-      },
-    ]);
-  }
+const userPhoto =
+  "https://png.clipart.me/istock/previews/1929/19298171-funny-cartoon-office-worker.jpg";
+const apiAddress = "https://social-network.samuraijs.com/api/1.0/users";
 
-  return (
-    <div>
-      {props.users.map((user) => (
-        <div key={user.id}>
-          <span>
-            <div>
-              <img
-                src={user.image}
-                alt="img"
-                className={styles.userAvatar}
-              ></img>
-            </div>
-            <div>
-              {user.follow ? (
-                <button onClick={() => props.unfollow(user.id)}>
-                  Отписаться
-                </button>
-              ) : (
-                <button onClick={() => props.follow(user.id)}>
-                  Подписаться
-                </button>
-              )}
-            </div>
-          </span>
-          <span>
+class Users extends React.Component {
+  getUsers = () => {
+    if (this.props.users.length === 0) {
+      axios.get(apiAddress).then((response) => {
+        this.props.setUsers(response.data.items);
+      });
+    }
+  };
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.getUsers}>Показать пользователей</button>
+        {this.props.users.map((user) => (
+          <div key={user.id}>
             <span>
-              <div>{user.name}</div>
-              <div>{`${user.job.department},`}</div>
+              <div>
+                <img
+                  src={
+                    user.photos.small !== null ? user.photos.small : userPhoto
+                  }
+                  alt="img"
+                  className={styles.userAvatar}
+                ></img>
+              </div>
+              <div>
+                {user.followed ? (
+                  <button onClick={() => this.props.unfollow(user.id)}>
+                    Отписаться
+                  </button>
+                ) : (
+                  <button onClick={() => this.props.follow(user.id)}>
+                    Подписаться
+                  </button>
+                )}
+              </div>
             </span>
             <span>
-              <div>{user.job.post}</div>
-              <div>{`Статус: ${user.status}`}</div>
+              <span>
+                <div>{user.name}</div>
+                <div>user.job.department</div>
+              </span>
+              <span>
+                <div>user.job.post</div>
+                <div>user.status</div>
+              </span>
             </span>
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-};
+          </div>
+        ))}
+      </div>
+    );
+  }
+}
 
 export default Users;
