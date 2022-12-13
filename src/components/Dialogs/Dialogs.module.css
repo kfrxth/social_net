@@ -9,17 +9,33 @@
 }
 
 .messages {
-  padding: 10px;
+  padding: 50px;
 }
 
 .dialog {
-  padding: 20px;
-  text-decoration: none;
-  color: #000000;
-}
-
-.active {
-  padding: 20px;
-  text-decoration: none;
-  color: teal;
-}
+	text-decoration: none;
+	font-size: medium;
+	margin: 40px;
+	color: #000000;
+	text-align: left;
+	font-weight: bolder;
+	border-bottom: 2px solid #f2f3f7;
+	font-family: "SegoeUIBold";
+	font-size: 16px;
+	text-transform: uppercase;
+  }
+  
+  .dialog .active {
+	font-family: "Merriweather", serif;
+	font-size: larger;
+	margin: 40px;
+	color: #1e3685;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	-ms-transition: all 0.5s ease-in-out;
+	-o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+	cursor: pointer;
+	text-decoration: none;
+	border-bottom: 1px solid #1e3685;
+  }
