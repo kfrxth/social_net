@@ -1,12 +1,19 @@
-.item {
-	color:dodgerblue;
+.descriptionBlock {
+	padding: 10px;
+	height: auto;
 }
 
 .img {
-	height: 200px;
-	width: 80%;
+	border-radius: 30px;
+	border: 3px solid rgb(228, 224, 224);
+	width: 25%;
 }
 
-.descriptionBlock {
-	padding: 10px;
+.text {
+	border: 1px solid rgb(228, 224, 224);
+	border-radius: 10px;
+	width: 25%;
+	height: auto;
+	text-align: center;
+	margin-left: 5px;
 }
