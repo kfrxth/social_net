@@ -15,4 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </Provider>
   </BrowserRouter>
 );
+
+window.store = store;
+
 reportWebVitals();
