@@ -8,3 +8,5 @@ Redux
 React-redux 
 Flux-conception
 BLL+UI
+DAL API
+SOLID
