@@ -17,24 +17,18 @@ export const usersAPI = {
   },
 
   async getUserProfile(id) {
-    const response = await instance.get(`profile/${id}`);
-    return response.data;
+    return await instance.get(`profile/${id}`);
   },
 
   async getMyHeader() {
-    const response = instance.get(`/auth/me`);
-    return response;
+    return instance.get(`/auth/me`);
   },
 
   async followToUser(id) {
-    const response = instance.post(`follow/${id}`);
-    debugger;
-    return response;
+    return instance.post(`follow/${id}`);
   },
 
   async unfollowToUser(id) {
-    const response = instance.delete(`follow/${id}`);
-
-    return response;
+    return instance.delete(`follow/${id}`);
   },
 };
