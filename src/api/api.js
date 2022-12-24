@@ -17,7 +17,7 @@ export const usersAPI = {
   },
 
   async getUserProfile(id) {
-    return await instance.get(`profile/${id}`);
+    return profileAPI.getUserProfile(id);
   },
 
   async followToUser(id) {
@@ -26,6 +26,12 @@ export const usersAPI = {
 
   async unfollowToUser(id) {
     return instance.delete(`follow/${id}`);
+  },
+};
+
+export const profileAPI = {
+  async getUserProfile(id) {
+    return await instance.get(`profile/${id}`);
   },
 };
 
