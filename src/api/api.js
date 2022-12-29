@@ -30,6 +30,14 @@ export const usersAPI = {
 };
 
 export const profileAPI = {
+  async getStatus(id) {
+    return instance.get(`profile/status/${id}`);
+  },
+  async updateStatus(status) {
+    return instance.put(`profile/status`, {
+      status: status,
+    });
+  },
   async getUserProfile(id) {
     return await instance.get(`profile/${id}`);
   },

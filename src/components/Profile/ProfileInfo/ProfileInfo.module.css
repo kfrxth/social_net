@@ -17,3 +17,22 @@
 	text-align: center;
 	margin-left: 5px;
 }
+
+.status {
+	border: 1px solid rgb(228, 224, 224);
+	border-radius: 10px;
+	width: 25%;
+	height: auto;
+	min-height: 20px;
+	text-align: center;
+	margin-left: 5px;
+	margin-bottom: 5px;
+}
+
+.input {
+	border: 1px solid rgb(228, 224, 224);
+	border-radius: 10px;
+	height: auto;
+	min-height: 20px;
+	text-align: center;
+}
