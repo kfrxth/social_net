@@ -3,6 +3,11 @@ import DialogItem from "./DialogItem/DialogItem.jsx";
 import Message from "./Message/Message";
 import s from "./Dialogs.module.css";
 import { Navigate } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
+import { Textarea } from "../common/FormControls/FormControls.jsx";
+import { maxLengthCreator, required } from "../../utils/validators/validators.js";
+
+const maxLengthMessage = maxLengthCreator(10);
 
 const Dialogs = (props) => {
   let state = props.dialogsPage;
@@ -27,22 +32,14 @@ const Dialogs = (props) => {
     );
   });
 
-  let newMessageBody = state.textMessage;
-
-  const newMessageRef = React.createRef();
-
-  const onSendNewMessage = () => {
-    props.sendMessage();
+  const addNewMessage = (values) => {
+    props.sendMessage(values.newMessageBody);
+	values.newMessageBody = '';
   };
 
-  const onMessageChange = (e) => {
-    let text = e.target.value;
-    props.updateNewMessage(text);
-  };
-
-  if (!props.isAuth){
-	return <Navigate to="/login"></Navigate>
-  };
+  if (!props.isAuth) {
+    return <Navigate to="/login"></Navigate>;
+  }
 
   return (
     <div>
@@ -50,23 +47,33 @@ const Dialogs = (props) => {
         <div className={s.dialogsItems}>{dialogsMassive}</div>
         <div className={s.messages}>
           <div>{messagesMassive}</div>
-          <div>
-            <div>
-              <textarea
-                placeholder="Введите сообщение"
-                ref={newMessageRef}
-                onChange={onMessageChange}
-                value={newMessageBody}
-              />
-            </div>
-            <div>
-              <button onClick={onSendNewMessage}>Отправить сообщение</button>
-            </div>
-          </div>
+          <AddMessageFormRedux onSubmit={addNewMessage} />
         </div>
       </div>
     </div>
   );
 };
+
+const AddMessageForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div>
+        <Field
+          component={Textarea}
+		  validate={[required, maxLengthMessage]}
+          name="newMessageBody"
+          placeholder="Введите сообщение"
+        />
+      </div>
+      <div>
+        <button>Отправить сообщение</button>
+      </div>
+    </form>
+  );
+};
+
+const AddMessageFormRedux = reduxForm({ form: "dialogAddMessageForm" })(
+  AddMessageForm
+);
 
 export default Dialogs;

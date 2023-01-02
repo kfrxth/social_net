@@ -1,5 +1,4 @@
 const SEND_NEW_MESSAGE = "SEND-NEW-MESSAGE";
-const UPDATE_NEW_MESSAGE = "UPDATE-NEW-MESSAGE";
 
 let initialState = {
   messagesData: [
@@ -38,42 +37,28 @@ let initialState = {
       name: "Valentin",
     },
   ],
-  textMessage: "",
 };
 
 const dialogsReducer = (state = initialState, action) => {
   if (action.type === SEND_NEW_MESSAGE) {
-    if (state.textMessage) {
+    if (action.newMessageBody) {
       return {
         ...state,
-        textMessage: "",
         messagesData: [
           ...state.messagesData,
-          { id: 1, text: state.textMessage },
+          { id: 1, text: action.newMessageBody },
         ],
       };
     }
-  }
-  if (action.type === UPDATE_NEW_MESSAGE) {
-    return {
-      ...state,
-      textMessage: action.newText,
-    };
   }
 
   return state;
 };
 
-export const sendNewMessageActionCreator = () => {
+export const sendNewMessageActionCreator = (newMessageBody) => {
   return {
     type: SEND_NEW_MESSAGE,
-  };
-};
-
-export const updateNewMessageActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_MESSAGE,
-    newText: text,
+	newMessageBody
   };
 };
 
