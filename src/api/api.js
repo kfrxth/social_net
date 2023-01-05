@@ -45,6 +45,12 @@ export const profileAPI = {
 
 export const authAPI = {
   async getMyHeader() {
-    return instance.get(`/auth/me`);
+    return instance.get(`auth/me`);
+  },
+  async login(email, password, rememberMe = false) {
+    return instance.post(`auth/login`, { email, password, rememberMe });
+  },
+  async logout() {
+    return instance.delete(`auth/login`);
   },
 };

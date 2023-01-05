@@ -1,16 +1,21 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { required } from "../../utils/validators/validators";
 import { Input } from "../common/FormControls/FormControls";
-import styles from './login.module.css';
+import { login } from "../../redux/auth-reducer";
+import { Navigate } from "react-router-dom";
+import styles from "../common/FormControls/FormControls.module.css";
+import withRouter from "../common/withRouter";
+import { compose } from "redux";
 
 const LoginForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
         <Field
-          placeholder={"логин"}
-          name="login"
+          placeholder={"email"}
+          name="email"
           validate={[required]}
           component={Input}
         />
@@ -20,9 +25,13 @@ const LoginForm = (props) => {
           placeholder={"пароль"}
           validate={[required]}
           name="password"
+          type={"password"}
           component={Input}
         />
       </div>
+      {props.error && (
+        <div className={styles.formSummaryError}>{props.error}</div>
+      )}
       <div>
         <Field type={"checkbox"} name="rememberMe" component={Input} />
         запомнить меня
@@ -40,10 +49,15 @@ const LoginReduxForm = reduxForm({
   form: "login",
 })(LoginForm);
 
-const Login = () => {
+const Login = (props) => {
   const onSubmit = (formData) => {
-    console.log(formData);
+    props.login(formData.email, formData.password, formData.rememberMe);
   };
+  
+  if (props.isAuth) {
+    return <Navigate to={`/profile/${props.userId}`}></Navigate>;
+  }
+
   return (
     <div>
       <h1>Необходимо залогиниться</h1>
@@ -51,5 +65,9 @@ const Login = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  isAuth: state.auth.isAuth,
+  userId: state.auth.userId,
+});
 
-export default Login;
+export default compose(connect(mapStateToProps, { login }), withRouter)(Login);

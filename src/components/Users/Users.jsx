@@ -36,7 +36,7 @@ const Users = (props) => {
       return <></>;
     });
   };
-
+  
   const usersItems = () => {
     return props.users.map((user) => (
       <div key={user.id}>
