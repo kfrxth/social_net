@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from "./components/login/Login";
+import LoginPage from "./components/Login/Login";
 import { initializeApp } from "./redux/app-reducer";
 import { connect } from "react-redux";
 import withRouter from "./components/common/withRouter";

@@ -60,7 +60,7 @@ const Login = (props) => {
 
   return (
     <div>
-      <h1>Необходимо залогиниться</h1>
+      <h1>Авторизация</h1>
       <LoginReduxForm onSubmit={onSubmit} />
     </div>
   );
