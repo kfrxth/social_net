@@ -13,6 +13,7 @@
 	border-bottom: 2px solid #f2f3f7;
 	font-family: "SegoeUIBold";
 	font-size: 16px;
+	cursor: pointer;
 	text-transform: uppercase;
 	margin-left: 20px;
   }

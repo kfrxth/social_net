@@ -43,7 +43,7 @@ const Navbar = () => {
 
       <div className={s.item}>
         <NavLink
-          to="/music"
+          to="/documents"
           className={(navData) => (navData.isActive ? s.active : s.item)}
         >
           Документы
