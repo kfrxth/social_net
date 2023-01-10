@@ -10,7 +10,10 @@ const Post = (props) => {
       ></img>
       <span>{props.message}</span>
       <div>
-        <span>{`${props.likes} ♥`}</span>
+        <span
+		className={props.isLiked ? s.likedByMe : s.likes}
+		onClick={() => props.putLikeOnPost(props.id)}
+        >{`${props.likes} ♥`}</span>
       </div>
     </div>
   );

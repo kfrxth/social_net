@@ -1,6 +1,7 @@
 import { profileAPI, usersAPI } from "../api/api";
 
 const ADD_POST = "ADD-POST";
+const PUT_LIKE_ON_POST = "PUT_LIKE_ON_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 
@@ -10,15 +11,17 @@ let initialState = {
       id: 1,
       message: "Hi, you are",
       likes: 10,
+      isLiked: false,
     },
     {
       id: 2,
       message: "its me yees",
       likes: 15,
+      isLiked: false,
     },
   ],
   profile: null,
-  status: '',
+  status: "",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -28,6 +31,7 @@ const profileReducer = (state = initialState, action) => {
         id: 5,
         message: action.newPostBody,
         likes: 0,
+        isLiked: false,
       };
 
       return {
@@ -42,6 +46,21 @@ const profileReducer = (state = initialState, action) => {
   if (action.type === SET_STATUS) {
     return { ...state, status: action.status };
   }
+  if (action.type === PUT_LIKE_ON_POST) {
+    return {
+      ...state,
+      posts: state.posts.map((p) => {
+        if (p.id === action.postId) {
+          if (p.isLiked === false) {
+            return { ...p, likes: p.likes + 1, isLiked: true };
+          } else {
+            return { ...p, likes: p.likes - 1, isLiked: false };
+          }
+        }
+        return p;
+      }),
+    };
+  }
 
   return state;
 };
@@ -49,7 +68,14 @@ const profileReducer = (state = initialState, action) => {
 export const addPostActionCreator = (newPostBody) => {
   return {
     type: ADD_POST,
-	newPostBody
+    newPostBody,
+  };
+};
+
+export const putLikeOnPost = (post) => {
+  return {
+    type: PUT_LIKE_ON_POST,
+    postId: post,
   };
 };
 

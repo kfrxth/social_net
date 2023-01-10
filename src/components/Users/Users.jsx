@@ -21,6 +21,7 @@ const Users = (props) => {
       ) {
         return (
           <span
+			key={i}
             className={
               props.currentPage === i ? styles.selectedPage : styles.span
             }
@@ -31,15 +32,15 @@ const Users = (props) => {
         );
       }
       if (i === pages.length - 1) {
-        return <> . . .</>;
+        return <span key={i}> . . .</span>;
       }
-      return <></>;
+      return <span key={i}></span>;
     });
   };
-  
+
   const usersItems = () => {
-    return props.users.map((user) => (
-      <div key={user.id}>
+    return props.users.map((user, index) => (
+      <div key={index}>
         <span>
           <div>
             <NavLink to={"/profile/" + user.id}>

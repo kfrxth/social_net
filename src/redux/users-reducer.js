@@ -18,7 +18,7 @@ let initialState = {
 };
 
 const usersReducer = (state = initialState, action) => {
-  if (action.type === "FOLLOW") {
+  if (action.type === FOLLOW) {
     return {
       ...state,
       users: state.users.map((u) => {
@@ -29,7 +29,7 @@ const usersReducer = (state = initialState, action) => {
       }),
     };
   }
-  if (action.type === "UNFOLLOW") {
+  if (action.type === UNFOLLOW) {
     return {
       ...state,
       users: state.users.map((u) => {
@@ -40,13 +40,13 @@ const usersReducer = (state = initialState, action) => {
       }),
     };
   }
-  if (action.type === "SET_USERS") {
+  if (action.type === SET_USERS) {
     return { ...state, users: action.users };
   }
-  if (action.type === "SET_CURRENT_PAGE") {
+  if (action.type === SET_CURRENT_PAGE) {
     return { ...state, currentPage: action.currentPage };
   }
-  if (action.type === "SET_TOTAL_USERS_COUNT") {
+  if (action.type === SET_TOTAL_USERS_COUNT) {
     return { ...state, totalUsersCount: action.count };
   }
   if (action.type === TOGGLE_IS_FETCHING) {
@@ -117,8 +117,8 @@ export const toggleFollowingProgress = (isFetching, userId) => {
 export const getUsers = (page, pageSize) => {
   return (dispatch) => {
     dispatch(toggleIsFetching(true));
-	dispatch(setCurrentPage(page));
-	
+    dispatch(setCurrentPage(page));
+
     usersAPI.getUsers(page, pageSize).then((data) => {
       dispatch(toggleIsFetching(false));
       dispatch(setUsers(data.items));

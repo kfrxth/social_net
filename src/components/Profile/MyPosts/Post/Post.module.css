@@ -11,3 +11,12 @@
 .comment {
 	width: 100px;
 }
+
+.likes {
+	cursor: pointer;
+}
+
+.likedByMe {
+	cursor: pointer;
+	color: red;
+}

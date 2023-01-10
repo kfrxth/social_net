@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { addPostActionCreator } from "../../../redux/profile-reducer";
+import { addPostActionCreator, putLikeOnPost } from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 
 const mapStateToProps = (state) => {
@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
     addPost: (newPostBody) => {
       dispatch(addPostActionCreator(newPostBody));
     },
+	putLikeOnPost: (post) => {
+		dispatch(putLikeOnPost(post));
+	  },
   };
 };
 
