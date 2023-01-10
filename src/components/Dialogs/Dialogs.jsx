@@ -12,22 +12,22 @@ const maxLengthMessage = maxLengthCreator(10);
 const Dialogs = (props) => {
   let state = props.dialogsPage;
 
-  const dialogsMassive = state.dialogsData.map((dialog) => {
+  const dialogsMassive = state.dialogsData.map((dialog, index) => {
     return (
       <DialogItem
         id={dialog.id}
         name={dialog.name}
-        key={dialog.id}
+        key={index}
       ></DialogItem>
     );
   });
 
-  const messagesMassive = state.messagesData.map((message) => {
+  const messagesMassive = state.messagesData.map((message, index) => {
     return (
       <Message
         id={message.id}
         message={message.text}
-        key={message.id}
+        key={index}
       ></Message>
     );
   });
