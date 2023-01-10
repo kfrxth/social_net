@@ -12,6 +12,9 @@ import { connect } from "react-redux";
 import withRouter from "./components/common/withRouter";
 import { compose } from "redux";
 import Preloader from "./components/common/Preloader/Preloader";
+import { NewsPage } from "./components/News/NewsPage";
+import { DocumentsPage } from "./components/Documents/DocumentsPage";
+import { SettingsPage } from "./components/Settings/SettingsPage";
 
 class App extends Component {
   componentDidMount() {
@@ -34,6 +37,9 @@ class App extends Component {
             <Route path="/dialogs/*" element={<DialogsContainer />} />
             <Route path="/users" element={<UsersContainer />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/documents" element={<DocumentsPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Routes>
         </div>
       </div>
