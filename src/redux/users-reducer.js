@@ -1,4 +1,5 @@
 import { usersAPI } from "../api/api";
+import { updateObjectInArray } from "../utils/object-helpers/object-helper";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -21,23 +22,17 @@ const usersReducer = (state = initialState, action) => {
   if (action.type === FOLLOW) {
     return {
       ...state,
-      users: state.users.map((u) => {
-        if (u.id === action.userId) {
-          return { ...u, followed: true };
-        }
-        return u;
-      }),
+      users: updateObjectInArray(state.users, action.userId, "id", {
+        followed: true,
+      })
     };
   }
   if (action.type === UNFOLLOW) {
     return {
       ...state,
-      users: state.users.map((u) => {
-        if (u.id === action.userId) {
-          return { ...u, followed: false };
-        }
-        return u;
-      }),
+      users: updateObjectInArray(state.users, action.userId, "id", {
+        followed: false,
+      })
     };
   }
   if (action.type === SET_USERS) {
@@ -126,27 +121,35 @@ export const getUsers = (page, pageSize) => {
   };
 };
 
+const followUnfollowFlow = async (dispatch, id, apiMethod, actionCreator) => {
+  dispatch(toggleFollowingProgress(true, id));
+  let response = await apiMethod(id);
+
+  if (response.data.resultCode === 0) {
+    dispatch(actionCreator(id));
+  }
+  dispatch(toggleFollowingProgress(false, id));
+};
+
 export const follow = (id) => {
   return async (dispatch) => {
-    dispatch(toggleFollowingProgress(true, id));
-    let response = await usersAPI.followToUser(id);
-
-    if (response.data.resultCode === 0) {
-      dispatch(followSuccess(id));
-    }
-    dispatch(toggleFollowingProgress(false, id));
+    followUnfollowFlow(
+      dispatch,
+      id,
+      usersAPI.followToUser.bind(usersAPI),
+      followSuccess
+    );
   };
 };
 
 export const unfollow = (id) => {
   return async (dispatch) => {
-    dispatch(toggleFollowingProgress(true, id));
-    let response = await usersAPI.unfollowToUser(id);
-	
-    if (response.data.resultCode === 0) {
-      dispatch(unfollowSuccess(id));
-    }
-    dispatch(toggleFollowingProgress(false, id));
+    followUnfollowFlow(
+      dispatch,
+      id,
+      usersAPI.unfollowToUser.bind(usersAPI),
+      unfollowSuccess
+    );
   };
 };
 
