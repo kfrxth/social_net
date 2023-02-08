@@ -1,0 +1,23 @@
+{
+	"sqltools.connections": [
+		{
+			"previewLimit": 50,
+			"server": "172.16.1.15",
+			"port": 5432,
+			"askForPassword": true,
+			"driver": "PostgreSQL",
+			"name": "ubr",
+			"database": "vegaplusubr",
+			"username": "postgres"
+		},
+		{
+			"previewLimit": 50,
+			"server": "172.16.1.15",
+			"port": 5432,
+			"driver": "PostgreSQL",
+			"name": "172.16.1.15:5432",
+			"username": "postgres",
+			"database": "vegaplusubr_mbr"
+		}
+	]
+}
