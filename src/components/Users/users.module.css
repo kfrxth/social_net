@@ -3,33 +3,3 @@
 	border-radius: 20px;
 	height: 100px;
 }
-
-.span {
-	text-decoration: none;
-	font-size: larger;
-	color: #000000;
-	text-align: left;
-	font-weight: bolder;
-	border-bottom: 2px solid #f2f3f7;
-	font-family: "SegoeUIBold";
-	font-size: 16px;
-	cursor: pointer;
-	text-transform: uppercase;
-	margin-left: 20px;
-  }
-
-.selectedPage {
-	font-weight: bold;
-	font-family: "Merriweather", serif;
-	font-size: larger;
-	color: #1e3685;
-	margin-left: 20px;
-	-webkit-transition: all 0.2s ease-in-out;
-	-moz-transition: all 0.2s ease-in-out;
-	-ms-transition: all 0.2s ease-in-out;
-	-o-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
-	cursor: pointer;
-	text-decoration: none;
-	border-top: 3px solid #1e3685;
-  }
