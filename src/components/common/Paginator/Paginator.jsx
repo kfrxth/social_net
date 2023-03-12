@@ -15,7 +15,7 @@ export const Paginator = (props) => {
       {pages.map((i) => {
         if (
           i === 1 ||
-          (i <= props.currentPage + 3 && i >= props.currentPage - 3) ||
+          (i <= props.currentPage + 5 && i >= props.currentPage - 5) ||
           i === pages.length
         ) {
           return (
