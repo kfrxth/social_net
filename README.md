@@ -1,4 +1,4 @@
-# Social network for Budjet Company of Russia.
+# Social network for Budjet Company https://kfrxth.github.io/social_net/
 * html
 * css
 * js
