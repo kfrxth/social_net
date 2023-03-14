@@ -4,6 +4,7 @@ const ADD_POST = "ADD-POST";
 const PUT_LIKE_ON_POST = "PUT_LIKE_ON_POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
+const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 
 let initialState = {
   posts: [
@@ -45,6 +46,9 @@ const profileReducer = (state = initialState, action) => {
   }
   if (action.type === SET_STATUS) {
     return { ...state, status: action.status };
+  }
+  if (action.type === SAVE_PHOTO_SUCCESS) {
+    return { ...state, profile: {...state.profile, photos: action.photos} };
   }
   if (action.type === PUT_LIKE_ON_POST) {
     return {
@@ -93,6 +97,13 @@ export const setStatus = (status) => {
   };
 };
 
+export const savePhotoSuccess = (photo) => {
+	return {
+	  type: SAVE_PHOTO_SUCCESS,
+	  photo,
+	};
+  };
+
 export const getStatus = (userId) => {
   return async (dispatch) => {
     let response = await profileAPI.getStatus(userId);
@@ -115,5 +126,15 @@ export const getUserProfile = (userId) => {
     dispatch(setUserProfile(data));
   };
 };
+
+export const savePhoto = (file) => {
+	return async (dispatch) => {
+		let response = await profileAPI.savePhoto(file);
+
+		if (response.data.resultCode === 0) {
+			dispatch(savePhotoSuccess(response.data.photos));
+		  }
+	};
+  };
 
 export default profileReducer;

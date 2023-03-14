@@ -41,6 +41,16 @@ export const profileAPI = {
   async getUserProfile(id) {
     return await instance.get(`profile/${id}`);
   },
+  savePhoto(photoFile) {
+    const formData = new FormData();
+    formData.append("Image", photoFile);
+
+    return instance.put(`profile/photo`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 };
 
 export const authAPI = {

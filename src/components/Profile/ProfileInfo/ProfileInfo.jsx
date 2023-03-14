@@ -10,13 +10,25 @@ const ProfileInfo = (props) => {
   }
   const state = props.profile.data;
 
+  const onMainPhotoSelected = (e) => {
+    if (e.target.files.length) {
+      props.savePhoto(e.target.files[0]);
+    }
+  };
+
   return (
     <div className={s.descriptionBlock}>
-      <img src={state.photos.large || userPhoto} alt="img" className={s.img} />
-      <ProfileStatus
-        status={props.status}
-        updateStatus={props.updateStatus}
+      <input
+        src={state.photos.large || userPhoto}
+        alt="img"
+        className={s.img}
+        type={"image"}
       />
+
+      {props.isOwner && (
+        <input type={"file"} onChange={onMainPhotoSelected}></input>
+      )}
+      <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
       <div className={s.text}>
         <div className={s.fullName}>{state.fullName}</div>
         <div className={s.fullName}>{`vk: ${state.contacts.vk || ""}`}</div>
