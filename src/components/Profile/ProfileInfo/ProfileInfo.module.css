@@ -41,3 +41,8 @@
 .check {
 	visibility: hidden;
 }
+
+.contact {
+	padding-left: 20px;	
+	text-align: left;
+}

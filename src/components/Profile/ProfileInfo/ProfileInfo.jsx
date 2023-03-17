@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import s from "./ProfileInfo.module.css";
 import userPhoto from "../../../img/19298171-funny-cartoon-office-worker.jpeg";
 import ProfileStatus from "./ProfileStatus";
+import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
 
 const ProfileInfo = (props) => {
+  let [editMode, setEditMode] = useState(false);
+
   if (!props.profile && !props.auth) {
     return <Preloader />;
   }
@@ -29,13 +32,63 @@ const ProfileInfo = (props) => {
         <input type={"file"} onChange={onMainPhotoSelected}></input>
       )}
       <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
-      <div className={s.text}>
-        <div className={s.fullName}>{state.fullName}</div>
-        <div className={s.fullName}>{`vk: ${state.contacts.vk || ""}`}</div>
-        <div className={s.fullName}>{`inst: ${state.contacts.instagram ||
-          ""}`}</div>
-      </div>
+      {editMode ? (
+        <ProfileDataForm />
+      ) : (
+        <ProfileData
+          profile={state}
+          isOwner={props.isOwner}
+          goToEditMode={() => setEditMode(true)}
+        />
+      )}
     </div>
+  );
+};
+
+const Contact = ({ contactTitle, contactValue }) => {
+  return contactValue ? (
+    <div className={s.contact}>
+      <b>{contactTitle}</b>:{contactValue}
+    </div>
+  ) : (
+    ""
+  );
+};
+
+const ProfileData = ({ profile, isOwner, goToEditMode }) => {
+  return (
+    <>
+      {isOwner && <button onClick={goToEditMode}>edit</button>}
+      <div className={s.text}>
+        <div className={s.fullName}>
+          <b>Мое имя</b>: {profile.fullName}
+        </div>
+        <div className={s.fullName}>
+          <b>Ищу работу</b>: {profile.lookingForAJob ? "Да" : "Нет"}
+        </div>
+        {profile.lookingForAJob && (
+          <div className={s.fullName}>
+            <b>Мои навыки</b>: {profile.lookingForAJobDescription}
+          </div>
+        )}
+        <div className={s.fullName}>
+          <b>Обо мне</b>: {profile.aboutMe}
+        </div>
+        {
+          <div className={s.fullName}>
+            {Object.keys(profile.contacts).map((key) => {
+              return (
+                <Contact
+                  key={key}
+                  contactTitle={key}
+                  contactValue={profile.contacts[key]}
+                />
+              );
+            })}
+          </div>
+        }
+      </div>
+    </>
   );
 };
 
