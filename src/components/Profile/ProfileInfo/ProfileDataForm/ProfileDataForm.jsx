@@ -1,19 +1,48 @@
 import React from "react";
 import { reduxForm } from "redux-form";
-import { createField, Input } from "../../../common/FormControls/FormControls";
+import {
+  createField,
+  Input,
+  Textarea,
+} from "../../../common/FormControls/FormControls";
+import s from ".././ProfileInfo.module.css";
 
-const ProfileDataForm = () => {
+const ProfileDataForm = ({ handleSubmit, profile }) => {
   return (
-    <form>
-      <button onClick={() => ""}>save</button>
+    <form onSubmit={handleSubmit}>
+      <button>save</button>
       <div>
         <div>
           <b>Мое имя</b>: {createField("Полное имя", "fullName", [], Input)}
         </div>
         <div>
-          <b>Ищу работу: </b>
-          {createField(null, "lookingForAJob", null, Input, "checkbox")}
+          <b>Ищу работу</b>:
+          {createField("", "lookingForAJob", [], Input, "checkbox")}
         </div>
+        <div>
+          <b>Мои навыки</b>:
+          {createField(
+            "Профессиональные навыки",
+            "lookingForAJobDescription",
+            [],
+            Textarea
+          )}
+        </div>
+        <div>
+          <b>Обо мне</b>:{createField("я хорош", "aboutMe", [], Textarea)}
+        </div>
+         <div>
+          <b>Контакты</b>:
+          {Object.keys(profile.data.contacts).map((key) => {
+            return (
+              <div key={key} className={s.contact}>
+                <b>
+                  {key}: {createField("" + key, "contacts." + key, [], Input)}
+                </b>
+              </div>
+            );
+          })}
+        </div> 
       </div>
     </form>
   );

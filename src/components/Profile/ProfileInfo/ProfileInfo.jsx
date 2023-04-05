@@ -19,6 +19,11 @@ const ProfileInfo = (props) => {
     }
   };
 
+  const onSubmit = (formData) => {
+	props.saveProfile(formData);
+	setEditMode(false);
+  }
+
   return (
     <div className={s.descriptionBlock}>
       <input
@@ -33,7 +38,7 @@ const ProfileInfo = (props) => {
       )}
       <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
       {editMode ? (
-        <ProfileDataForm />
+        <ProfileDataForm initialValues={state} profile={props.profile} onSubmit={onSubmit}/>
       ) : (
         <ProfileData
           profile={state}
