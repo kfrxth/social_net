@@ -6,11 +6,13 @@ import {
   Textarea,
 } from "../../../common/FormControls/FormControls";
 import s from ".././ProfileInfo.module.css";
+import styles from "../../../common/FormControls/FormControls.module.css";
 
-const ProfileDataForm = ({ handleSubmit, profile }) => {
+const ProfileDataForm = ({ handleSubmit, profile, error }) => {
   return (
     <form onSubmit={handleSubmit}>
       <button>save</button>
+	  {error && <div className={styles.formSummaryError}>{error}</div>}
       <div>
         <div>
           <b>Мое имя</b>: {createField("Полное имя", "fullName", [], Input)}
