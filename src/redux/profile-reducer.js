@@ -146,8 +146,8 @@ export const saveProfile = (profile) => {
 			dispatch(getUserProfile(userId));
 		  } else {
 			let str = response.data.messages[0].split('->')[1].split(')')[0].toLowerCase();
-			console.log(str)
 			dispatch(stopSubmit("edit-profile", { "contacts": {[str]: `${response.data.messages[0]}`} } ));
+			return Promise.reject(response.data.messages[0]);	
 		  }
 	};
   };

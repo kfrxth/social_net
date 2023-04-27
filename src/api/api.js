@@ -60,10 +60,16 @@ export const authAPI = {
   async getMyHeader() {
     return instance.get(`auth/me`);
   },
-  async login(email, password, rememberMe = false) {
-    return instance.post(`auth/login`, { email, password, rememberMe });
+  async login(email, password, rememberMe = false, captcha = null) {
+    return instance.post(`auth/login`, { email, password, rememberMe, captcha });
   },
   async logout() {
     return instance.delete(`auth/login`);
   },
 };
+
+export const securityAPI = {
+	async getCaptchaUrl() {
+	  return instance.get(`security/get-captcha-url`);
+	},
+  };
