@@ -1,0 +1,222 @@
+import { stopSubmit } from "redux-form";
+import { profileAPI, usersAPI } from "../api/api";
+import { PhotosType } from "../components/types/types";
+
+const ADD_POST = "ADD-POST";
+const PUT_LIKE_ON_POST = "PUT_LIKE_ON_POST";
+const SET_USER_PROFILE = "SET_USER_PROFILE";
+const SET_STATUS = "SET_STATUS";
+const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
+
+type PostType = {
+  id: number;
+  message: string;
+  likes: number;
+  isLiked: boolean;
+};
+
+type ContactsType = {
+  github: string;
+  vk: string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  website: string;
+  youtube: string;
+  mainLink: string;
+};
+
+type ProfileType = {
+  userId: number;
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  contacts: ContactsType;
+  photos: PhotosType;
+};
+
+let initialState = {
+  posts: [
+    {
+      id: 1,
+      message: "Hi, you are",
+      likes: 10,
+      isLiked: false,
+    },
+    {
+      id: 2,
+      message: "its me yees",
+      likes: 15,
+      isLiked: false,
+    },
+  ] as Array<PostType>,
+  profile: null as ProfileType | null,
+  status: "",
+};
+
+export type InitialStateType = typeof initialState;
+
+const profileReducer = (
+  state = initialState,
+  action: any
+): InitialStateType => {
+  if (action.type === ADD_POST) {
+    if (action.newPostBody) {
+      let newPost = {
+        id: 5,
+        message: action.newPostBody,
+        likes: 0,
+        isLiked: false,
+      };
+
+      return {
+        ...state,
+        posts: [...state.posts, newPost],
+      };
+    }
+  }
+  if (action.type === SET_USER_PROFILE) {
+    return { ...state, profile: action.profile };
+  }
+  if (action.type === SET_STATUS) {
+    return { ...state, status: action.status };
+  }
+  if (action.type === SAVE_PHOTO_SUCCESS) {
+    return { ...state, profile: { ...state.profile, photos: action.photos } as ProfileType};
+  }
+  if (action.type === PUT_LIKE_ON_POST) {
+    return {
+      ...state,
+      posts: state.posts.map((p) => {
+        if (p.id === action.postId) {
+          if (p.isLiked === false) {
+            return { ...p, likes: p.likes + 1, isLiked: true };
+          } else {
+            return { ...p, likes: p.likes - 1, isLiked: false };
+          }
+        }
+        return p;
+      }),
+    };
+  }
+
+  return state;
+};
+
+type AddPostActionCreatorType = {
+  type: typeof ADD_POST;
+  newPostBody: string;
+};
+
+export const addPostActionCreator = (
+  newPostBody: string
+): AddPostActionCreatorType => {
+  return {
+    type: ADD_POST,
+    newPostBody,
+  };
+};
+
+type PutLikeOnPostType = {
+  type: typeof PUT_LIKE_ON_POST;
+  postId: string;
+};
+
+export const putLikeOnPost = (post: string): PutLikeOnPostType => {
+  return {
+    type: PUT_LIKE_ON_POST,
+    postId: post,
+  };
+};
+
+type SetUserProfileType = {
+  type: typeof SET_USER_PROFILE;
+  profile: ProfileType;
+};
+
+export const setUserProfile = (profile: ProfileType): SetUserProfileType => {
+  return {
+    type: SET_USER_PROFILE,
+    profile
+  };
+};
+
+type SetStatusType = {
+  type: typeof SET_STATUS;
+  status: string;
+};
+
+export const setStatus = (status: string): SetStatusType => {
+  return {
+    type: SET_STATUS,
+    status,
+  };
+};
+
+type SavePhotoSuccessType = {
+  type: typeof SAVE_PHOTO_SUCCESS;
+  photo: string;
+};
+
+export const savePhotoSuccess = (photo: string): SavePhotoSuccessType => {
+  return {
+    type: SAVE_PHOTO_SUCCESS,
+    photo,
+  };
+};
+
+export const getStatus = (userId: number) => {
+  return async (dispatch: any) => {
+    let response = await profileAPI.getStatus(userId);
+    dispatch(setStatus(response.data));
+  };
+};
+
+export const updateStatus = (status: string) => {
+  return async (dispatch: any) => {
+    let response = await profileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+      dispatch(setStatus(status));
+    }
+  };
+};
+
+export const getUserProfile = (userId: number) => {
+  return async (dispatch: any) => {
+    let data = await usersAPI.getUserProfile(userId);
+    dispatch(setUserProfile(data as any));
+  };
+};
+
+export const savePhoto = (file: any) => {
+  return async (dispatch: any) => {
+    let response = await profileAPI.savePhoto(file);
+
+    if (response.data.resultCode === 0) {
+      dispatch(savePhotoSuccess(response.data.photos));
+    }
+  };
+};
+
+export const saveProfile = (profile: ProfileType) => {
+  return async (dispatch:any, getState:any) => {
+    const userId = getState().auth.userId;
+    let response = await profileAPI.saveProfile(profile);
+    if (response.data.resultCode === 0) {
+      dispatch(getUserProfile(userId));
+    } else {
+      let str = response.data.messages[0]
+        .split("->")[1]
+        .split(")")[0]
+        .toLowerCase();
+      dispatch(
+        stopSubmit("edit-profile", {
+          contacts: { [str]: `${response.data.messages[0]}` },
+        })
+      );
+      return Promise.reject(response.data.messages[0]);
+    }
+  };
+};
+
+export default profileReducer;

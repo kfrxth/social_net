@@ -1,5 +1,27 @@
 const SEND_NEW_MESSAGE = "SEND-NEW-MESSAGE";
 
+type actionType = {
+  type: typeof SEND_NEW_MESSAGE;
+  newMessageBody: string;
+};
+
+export type DialoagType = {
+  id: number;
+  name: string;
+};
+
+export type MessagesType = {
+  id: number;
+  text: string;
+};
+
+export type InitialState = typeof initialState;
+
+type SendNewMessageActionCreatorType = {
+  type: typeof SEND_NEW_MESSAGE;
+  newMessageBody: string;
+};
+
 let initialState = {
   messagesData: [
     {
@@ -14,7 +36,7 @@ let initialState = {
       id: 3,
       text: "YO",
     },
-  ],
+  ] as Array<MessagesType>,
   dialogsData: [
     {
       id: 1,
@@ -36,10 +58,10 @@ let initialState = {
       id: 5,
       name: "Valentin",
     },
-  ],
+  ] as Array<DialoagType>,
 };
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: actionType) => {
   if (action.type === SEND_NEW_MESSAGE) {
     if (action.newMessageBody) {
       return {
@@ -55,10 +77,12 @@ const dialogsReducer = (state = initialState, action) => {
   return state;
 };
 
-export const sendNewMessageActionCreator = (newMessageBody) => {
+export const sendNewMessageActionCreator = (
+  newMessageBody: string
+): SendNewMessageActionCreatorType => {
   return {
     type: SEND_NEW_MESSAGE,
-	newMessageBody
+    newMessageBody,
   };
 };
 

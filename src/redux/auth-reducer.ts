@@ -4,23 +4,14 @@ import { authAPI, securityAPI } from "../api/api";
 const SET_USER_DATA = "network/auth/SET_USER_DATA";
 const GET_CAPTCHA_URL_SUCCESS = "network/auth/GET_CAPTCHA_URL_SUCCESS";
 
-type stateType = {
-  userId: number | null;
-  email: string | null;
-  login: string | null;
-  isFetching: boolean;
-  isAuth: boolean;
-  captchaUrl?: any;
-};
-
 type actionType = {
   type: typeof SET_USER_DATA | typeof GET_CAPTCHA_URL_SUCCESS;
   payload?: {
-    userId: stateType["userId"];
-    email: stateType["email"];
-    login: stateType["login"];
-    isAuth: stateType["isAuth"];
-    captchaUrl: stateType["captchaUrl"];
+    userId: number | null;
+    email: string | null;
+    login: string | null;
+    isAuth: boolean;
+    captchaUrl: string | null;
   } | null;
 };
 
@@ -28,7 +19,7 @@ type SetAuthUserDataPayloadType = {
   userId: number | null;
   email: string | null;
   login: string | null;
-  isAuth: boolean | null;
+  isAuth: boolean;
 };
 
 type SetAuthUserDataType = {
@@ -41,13 +32,15 @@ type GetCaptchaUrlSuccessType = {
   payload: { captchaUrl: string };
 };
 
-let initialState: stateType = {
-  userId: null,
-  email: null,
-  login: null,
+export type stateType = typeof initialState;
+
+let initialState = {
+  userId: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
   isFetching: false,
   isAuth: false,
-  captchaUrl: null,
+  captchaUrl: null as string | null,
 };
 
 const authReducer = (state = initialState, action: actionType): stateType => {
