@@ -3,7 +3,6 @@ import {
   follow,
   setCurrentPage,
   unfollow,
-  toggleFollowingProgress,
   getUsers,
 } from "../../redux/users-reducer";
 import Users from "./Users";
@@ -21,19 +20,25 @@ import {
 import { UserType } from "../types/types";
 import { AppStateType } from "../../redux/redux-store";
 
-type PropsTypes = {
+type MapStatePropsTypes = {
   currentPage: number;
   pageSize: number;
   isFetching: boolean;
   totalUsersCount: number;
   users: Array<UserType>;
   followingInProgress: Array<number>;
+};
 
-  follow: () => void;
-  unfollow: () => void;
+type OwnPropsTypes = { usersTitle: string };
+
+type MapDispatchPropsTypes = {
+  follow: (id: number) => void;
+  unfollow: (id: number) => void;
   setCurrentPage: (page: number) => any;
   getUsers: (page: number, pageSize: number) => Array<number>;
 };
+
+type PropsTypes = MapStatePropsTypes & OwnPropsTypes & MapDispatchPropsTypes;
 
 class UsersContainer extends React.Component<PropsTypes> {
   onPageChanged = (page: number) => {
@@ -48,6 +53,7 @@ class UsersContainer extends React.Component<PropsTypes> {
   render() {
     return (
       <>
+        <h2>{this.props.usersTitle}</h2>
         {this.props.isFetching ? (
           <Preloader />
         ) : (
@@ -67,7 +73,7 @@ class UsersContainer extends React.Component<PropsTypes> {
   }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsTypes => {
   return {
     users: getUsersSelect(state),
     pageSize: getPageSizeSelect(state),
@@ -83,7 +89,6 @@ export default compose<React.Component<PropsTypes>>(
     follow,
     unfollow,
     setCurrentPage,
-    toggleFollowingProgress,
     getUsers,
   })
 )(UsersContainer);

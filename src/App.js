@@ -32,17 +32,19 @@ const ProfileContainer = React.lazy(() =>
 );
 
 class App extends Component {
-
-	catchAllUnhandledErrors = (promiseRejectionEvent) => {
-		alert('some error');
-	}
+  catchAllUnhandledErrors = (promiseRejectionEvent) => {
+    alert("some error");
+  };
 
   componentDidMount() {
     this.props.initializeApp();
-	window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
-  componentWillUnmount(){
-	window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+  componentWillUnmount() {
+    window.removeEventListener(
+      "unhandledrejection",
+      this.catchAllUnhandledErrors
+    );
   }
 
   render() {
@@ -57,16 +59,19 @@ class App extends Component {
         <div className="app-wrapper-content">
           <Suspense fallback={<Preloader />}>
             <Routes>
-				<Route exact path="/" element={<ProfileContainer />} />
-                <Route path="/profile/:userId" element={<ProfileContainer />} />
-                <Route path="/profile/" element={<ProfileContainer />} />
-                <Route path="/dialogs/*" element={<DialogsContainer />} />
-                <Route path="/users" element={<UsersContainer />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/news" element={<NewsPage />} />
-                <Route path="/documents" element={<DocumentsPage />} />
-                <Route path="/settings" element={<SettingsPage />} />
-                <Route path="*" element={<div>404 not found</div>} />
+              <Route exact path="/" element={<ProfileContainer />} />
+              <Route path="/profile/:userId" element={<ProfileContainer />} />
+              <Route path="/profile/" element={<ProfileContainer />} />
+              <Route path="/dialogs/*" element={<DialogsContainer />} />
+              <Route
+                path="/users"
+                element={<UsersContainer usersTitle={"Пользователи"} />}
+              />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/documents" element={<DocumentsPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+              <Route path="*" element={<div>404 not found</div>} />
             </Routes>
           </Suspense>
         </div>
