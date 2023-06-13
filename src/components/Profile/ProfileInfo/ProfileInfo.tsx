@@ -4,32 +4,55 @@ import s from "./ProfileInfo.module.css";
 import userPhoto from "../../../img/19298171-funny-cartoon-office-worker.jpeg";
 import ProfileStatus from "./ProfileStatus";
 import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
+import { ProfileType } from "../..//types/types";
 
-const ProfileInfo = (props) => {
+type PropsType = {
+  profile: ProfileType;
+  status: string;
+  isOwner: boolean;
+  auth: Object;
+  savePhoto: (e: Event) => void;
+  updateStatus: (text: string) => string;
+  saveProfile: ({}: Object) => Promise<void>;
+  goToEditMode: () => void;
+};
+
+type ProfileDataType = {
+  profile: ProfileType;
+  isOwner: boolean;
+  goToEditMode: () => void;
+};
+
+type ContactType = {
+  contactTitle: string;
+  contactValue: string | null;
+};
+
+const ProfileInfo = (props: PropsType) => {
   let [editMode, setEditMode] = useState(false);
 
   if (!props.profile && !props.auth) {
     return <Preloader />;
   }
-  const state = props.profile.data;
+  console.log(props);
+  const state = props.profile;
 
-  const onMainPhotoSelected = (e) => {
-    if (e.target.files.length) {
+  const onMainPhotoSelected = (e: any) => {
+    if (e.target.files[0].length) {
       props.savePhoto(e.target.files[0]);
     }
   };
 
-  const onSubmit = (formData) => {
-	props.saveProfile(formData)
-	.then (()=>{
-		setEditMode(false);
-	})
-  }
+  const onSubmit = (formData: {}) => {
+    props.saveProfile(formData).then(() => {
+      setEditMode(false);
+    });
+  };
 
   return (
     <div className={s.descriptionBlock}>
       <input
-        src={state.photos.large || userPhoto}
+        src={state.data.photos.large || userPhoto}
         alt="img"
         className={s.img}
         type={"image"}
@@ -40,7 +63,11 @@ const ProfileInfo = (props) => {
       )}
       <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
       {editMode ? (
-        <ProfileDataForm initialValues={state} profile={props.profile} onSubmit={onSubmit}/>
+        <ProfileDataForm
+          initialValues={state}
+          profile={props.profile}
+          onSubmit={onSubmit}
+        />
       ) : (
         <ProfileData
           profile={state}
@@ -52,43 +79,43 @@ const ProfileInfo = (props) => {
   );
 };
 
-const Contact = ({ contactTitle, contactValue }) => {
-  return contactValue ? (
+const Contact = ({ contactTitle, contactValue }: ContactType) => {
+  return <>{contactValue}</> ? (
     <div className={s.contact}>
       <b>{contactTitle}</b>:{contactValue}
     </div>
   ) : (
-    ""
+    <></>
   );
 };
 
-const ProfileData = ({ profile, isOwner, goToEditMode }) => {
+const ProfileData = ({ profile, isOwner, goToEditMode }: ProfileDataType) => {
   return (
     <>
       {isOwner && <button onClick={goToEditMode}>edit</button>}
       <div className={s.text}>
         <div className={s.fullName}>
-          <b>Мое имя</b>: {profile.fullName}
+          <b>Мое имя</b>: {profile.data.fullName}
         </div>
         <div className={s.fullName}>
-          <b>Ищу работу</b>: {profile.lookingForAJob ? "Да" : "Нет"}
+          <b>Ищу работу</b>: {profile.data.lookingForAJob ? "Да" : "Нет"}
         </div>
-        {profile.lookingForAJob && (
+        {profile.data.lookingForAJob && (
           <div className={s.fullName}>
-            <b>Мои навыки</b>: {profile.lookingForAJobDescription}
+            <b>Мои навыки</b>: {profile.data.lookingForAJobDescription}
           </div>
         )}
         <div className={s.fullName}>
-          <b>Обо мне</b>: {profile.aboutMe}
+          <b>Обо мне</b>: {profile.data.aboutMe}
         </div>
         {
           <div className={s.fullName}>
-            {Object.keys(profile.contacts).map((key) => {
+            {Object.keys(profile.data.contacts as any).map((key) => {
               return (
                 <Contact
                   key={key}
                   contactTitle={key}
-                  contactValue={profile.contacts[key]}
+                  contactValue={profile.data.contacts[key]}
                 />
               );
             })}

@@ -1,6 +1,6 @@
 import { stopSubmit } from "redux-form";
 import { profileAPI, usersAPI } from "../api/api";
-import { PhotosType } from "../components/types/types";
+import { ProfileDataType } from "../components/types/types";
 
 const ADD_POST = "ADD-POST";
 const PUT_LIKE_ON_POST = "PUT_LIKE_ON_POST";
@@ -13,26 +13,6 @@ type PostType = {
   message: string;
   likes: number;
   isLiked: boolean;
-};
-
-type ContactsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
-};
-
-type ProfileType = {
-  userId: number;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  contacts: ContactsType;
-  photos: PhotosType;
 };
 
 let initialState = {
@@ -50,7 +30,7 @@ let initialState = {
       isLiked: false,
     },
   ] as Array<PostType>,
-  profile: null as ProfileType | null,
+  profile: null as ProfileDataType | null,
   status: "",
 };
 
@@ -82,7 +62,10 @@ const profileReducer = (
     return { ...state, status: action.status };
   }
   if (action.type === SAVE_PHOTO_SUCCESS) {
-    return { ...state, profile: { ...state.profile, photos: action.photos } as ProfileType};
+    return {
+      ...state,
+      profile: { ...state.profile, photos: action.photos } as ProfileDataType,
+    };
   }
   if (action.type === PUT_LIKE_ON_POST) {
     return {
@@ -131,13 +114,15 @@ export const putLikeOnPost = (post: string): PutLikeOnPostType => {
 
 type SetUserProfileType = {
   type: typeof SET_USER_PROFILE;
-  profile: ProfileType;
+  profile: ProfileDataType;
 };
 
-export const setUserProfile = (profile: ProfileType): SetUserProfileType => {
+export const setUserProfile = (
+  profile: ProfileDataType
+): SetUserProfileType => {
   return {
     type: SET_USER_PROFILE,
-    profile
+    profile,
   };
 };
 
@@ -198,23 +183,12 @@ export const savePhoto = (file: any) => {
   };
 };
 
-export const saveProfile = (profile: ProfileType) => {
-  return async (dispatch:any, getState:any) => {
+export const saveProfile = (profile: ProfileDataType) => {
+  return async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId;
     let response = await profileAPI.saveProfile(profile);
     if (response.data.resultCode === 0) {
       dispatch(getUserProfile(userId));
-    } else {
-      let str = response.data.messages[0]
-        .split("->")[1]
-        .split(")")[0]
-        .toLowerCase();
-      dispatch(
-        stopSubmit("edit-profile", {
-          contacts: { [str]: `${response.data.messages[0]}` },
-        })
-      );
-      return Promise.reject(response.data.messages[0]);
     }
   };
 };
