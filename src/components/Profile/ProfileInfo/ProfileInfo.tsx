@@ -65,6 +65,7 @@ const ProfileInfo = (props: PropsType) => {
       {editMode ? (
         <ProfileDataForm
           initialValues={state}
+		  //@ts-ignore
           profile={props.profile}
           onSubmit={onSubmit}
         />

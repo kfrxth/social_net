@@ -4,8 +4,8 @@ import Message from "./Message/Message";
 import s from "./Dialogs.module.css";
 import { Navigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
-import { Textarea } from "../common/FormControls/FormControls.jsx";
-import { maxLengthCreator, required } from "../../utils/validators/validators.js";
+import { Textarea } from "../common/FormControls/FormControls.tsx";
+import { maxLengthCreator, required } from "../../utils/validators/validators.ts";
 
 const maxLengthMessage = maxLengthCreator(10);
 
