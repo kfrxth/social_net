@@ -1,10 +1,5 @@
 import { connect } from "react-redux";
-import {
-  follow,
-  setCurrentPage,
-  unfollow,
-  getUsers,
-} from "../../redux/users-reducer";
+import { follow, actions, unfollow, getUsers } from "../../redux/users-reducer";
 import Users from "./Users";
 import React from "react";
 import Preloader from "../common/Preloader/Preloader";
@@ -28,6 +23,8 @@ type MapStatePropsTypes = {
   users: Array<UserType>;
   followingInProgress: Array<number>;
 };
+
+const setCurrentPage = actions.setCurrentPage;
 
 type OwnPropsTypes = { usersTitle: string };
 
