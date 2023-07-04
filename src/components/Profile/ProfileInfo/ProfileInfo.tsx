@@ -34,7 +34,6 @@ const ProfileInfo = (props: PropsType) => {
   if (!props.profile && !props.auth) {
     return <Preloader />;
   }
-  console.log(props);
   const state = props.profile;
 
   const onMainPhotoSelected = (e: any) => {
@@ -65,7 +64,7 @@ const ProfileInfo = (props: PropsType) => {
       {editMode ? (
         <ProfileDataForm
           initialValues={state}
-		  //@ts-ignore
+          //@ts-ignore
           profile={props.profile}
           onSubmit={onSubmit}
         />

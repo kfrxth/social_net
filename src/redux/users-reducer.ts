@@ -1,9 +1,9 @@
 import { Dispatch } from "redux";
-import { usersAPI } from "../api/api";
 import { UserType } from "../components/types/types";
 import { updateObjectInArray } from "../utils/object-helpers/object-helper";
 import { AppStateType, InferActionsTypes } from "./redux-store";
 import { ThunkAction } from "redux-thunk";
+import { usersAPI } from "../api/users-api";
 
 type DispatchType = Dispatch<ActionsTypes>;
 type ThunkType = ThunkAction<

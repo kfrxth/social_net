@@ -1,5 +1,4 @@
-import { stopSubmit } from "redux-form";
-import { profileAPI, usersAPI } from "../api/api";
+import { profileAPI } from './../api/profile-api';
 import { ProfileDataType } from "../components/types/types";
 
 const ADD_POST = "ADD-POST";
@@ -168,7 +167,7 @@ export const updateStatus = (status: string) => {
 
 export const getUserProfile = (userId: number) => {
   return async (dispatch: any) => {
-    let data = await usersAPI.getUserProfile(userId);
+    let data = await profileAPI.getUserProfile(userId);
     dispatch(setUserProfile(data as any));
   };
 };
