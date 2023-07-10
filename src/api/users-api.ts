@@ -1,3 +1,4 @@
+import { AxiosPromise } from "axios";
 import { GetItemsType, ResponseType, instance } from "./api";
 
 export const usersAPI = {
@@ -9,10 +10,10 @@ export const usersAPI = {
   },
 
   async followToUser(id: number) {
-    return instance.post(`follow/${id}`);
+    return instance.post<ResponseType>(`follow/${id}`);
   },
 
   async unfollowToUser(id: number) {
-    return instance.delete(`follow/${id}`);
+    return instance.delete(`follow/${id}`) as AxiosPromise<ResponseType>;
   },
 };

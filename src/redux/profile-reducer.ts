@@ -1,5 +1,5 @@
-import { profileAPI } from './../api/profile-api';
-import { ProfileDataType } from "../components/types/types";
+import { profileAPI } from "./../api/profile-api";
+import { PhotosType, ProfileDataType } from "../components/types/types";
 
 const ADD_POST = "ADD-POST";
 const PUT_LIKE_ON_POST = "PUT_LIKE_ON_POST";
@@ -139,10 +139,10 @@ export const setStatus = (status: string): SetStatusType => {
 
 type SavePhotoSuccessType = {
   type: typeof SAVE_PHOTO_SUCCESS;
-  photo: string;
+  photo: PhotosType;
 };
 
-export const savePhotoSuccess = (photo: string): SavePhotoSuccessType => {
+export const savePhotoSuccess = (photo: PhotosType): SavePhotoSuccessType => {
   return {
     type: SAVE_PHOTO_SUCCESS,
     photo,
@@ -151,15 +151,15 @@ export const savePhotoSuccess = (photo: string): SavePhotoSuccessType => {
 
 export const getStatus = (userId: number) => {
   return async (dispatch: any) => {
-    let response = await profileAPI.getStatus(userId);
-    dispatch(setStatus(response.data));
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setStatus(data));
   };
 };
 
 export const updateStatus = (status: string) => {
   return async (dispatch: any) => {
-    let response = await profileAPI.updateStatus(status);
-    if (response.data.resultCode === 0) {
+    let data = await profileAPI.updateStatus(status);
+    if (data.resultCode === 0) {
       dispatch(setStatus(status));
     }
   };
@@ -174,11 +174,12 @@ export const getUserProfile = (userId: number) => {
 
 export const savePhoto = (file: any) => {
   return async (dispatch: any) => {
-    let response = await profileAPI.savePhoto(file);
+    let data = await profileAPI.savePhoto(file);
 
-    if (response.data.resultCode === 0) {
-      dispatch(savePhotoSuccess(response.data.photos));
+    if (data.resultCode === 0) {
+      dispatch(savePhotoSuccess(data.data.photos));
     }
+    console.log(data);
   };
 };
 

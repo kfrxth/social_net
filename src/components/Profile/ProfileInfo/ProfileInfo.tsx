@@ -70,7 +70,7 @@ const ProfileInfo = (props: PropsType) => {
         />
       ) : (
         <ProfileData
-          profile={state}
+          profile={props.profile}
           isOwner={props.isOwner}
           goToEditMode={() => setEditMode(true)}
         />
