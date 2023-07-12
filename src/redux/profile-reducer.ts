@@ -174,12 +174,11 @@ export const getUserProfile = (userId: number) => {
 
 export const savePhoto = (file: any) => {
   return async (dispatch: any) => {
-    let data = await profileAPI.savePhoto(file);
+    let res = await profileAPI.savePhoto(file);
 
-    if (data.resultCode === 0) {
-      dispatch(savePhotoSuccess(data.data.photos));
+    if (res.data.resultCode === 0) {
+      dispatch(savePhotoSuccess(res.data.data.photos));
     }
-    console.log(data);
   };
 };
 

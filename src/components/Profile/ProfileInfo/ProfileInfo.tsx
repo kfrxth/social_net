@@ -37,7 +37,7 @@ const ProfileInfo = (props: PropsType) => {
   const state = props.profile;
 
   const onMainPhotoSelected = (e: any) => {
-    if (e.target.files[0].length) {
+    if (e.target.files[0]) {
       props.savePhoto(e.target.files[0]);
     }
   };
@@ -92,7 +92,7 @@ const Contact = ({ contactTitle, contactValue }: ContactType) => {
 const ProfileData = ({ profile, isOwner, goToEditMode }: ProfileDataType) => {
   return (
     <>
-      {isOwner && <button onClick={goToEditMode}>edit</button>}
+      {isOwner && <button onClick={goToEditMode}>Изменить данные</button>}
       <div className={s.text}>
         <div className={s.fullName}>
           <b>Мое имя</b>: {profile.data.fullName}

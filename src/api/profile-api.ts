@@ -2,8 +2,8 @@ import { PhotosType, ProfileDataType } from "./../components/types/types";
 import { ResponseType, instance } from "./api";
 
 type SavePhotoResponseDataType = {
-	photos: PhotosType;
-}
+  photos: PhotosType;
+};
 
 export const profileAPI = {
   async getStatus(id: number) {
@@ -19,19 +19,18 @@ export const profileAPI = {
   async getUserProfile<ProfileDataType>(id: number) {
     return await instance.get(`profile/${id}`);
   },
-  savePhoto(photoFile: any) {
+  async savePhoto(photoFile: any) {
     const formData = new FormData();
     formData.append("Image", photoFile);
 
-    return instance
+    return await instance
       .put<ResponseType<SavePhotoResponseDataType>>(`profile/photo`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      })
-      .then((res) => res.data);
+      });
   },
-  saveProfile(profile: ProfileDataType) {
-    return instance.put(`profile`, profile);
+  async saveProfile(profile: ProfileDataType) {
+    return await instance.put(`profile`, profile);
   },
 };
