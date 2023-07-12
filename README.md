@@ -3,6 +3,7 @@
 * css
 * js
 * rest-api
+* TypeScript
 * React
 * Redux
 * React-redux 
