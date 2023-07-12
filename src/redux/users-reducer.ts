@@ -1,17 +1,10 @@
 import { Dispatch } from "redux";
 import { UserType } from "../components/types/types";
 import { updateObjectInArray } from "../utils/object-helpers/object-helper";
-import { AppStateType, InferActionsTypes } from "./redux-store";
-import { ThunkAction } from "redux-thunk";
+import { BaseThunkType, InferActionsTypes } from "./redux-store";
 import { usersAPI } from "../api/users-api";
 
 type DispatchType = Dispatch<ActionsTypes>;
-type ThunkType = ThunkAction<
-  Promise<void>,
-  AppStateType,
-  unknown,
-  ActionsTypes
->;
 
 let initialState = {
   users: [] as Array<UserType>,
@@ -23,6 +16,8 @@ let initialState = {
 };
 
 type InitialStateType = typeof initialState;
+
+type ThunkType = BaseThunkType<ActionsTypes>
 
 type ActionsTypes = InferActionsTypes<typeof actions>;
 
